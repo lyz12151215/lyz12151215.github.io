@@ -1,0 +1,450 @@
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 背景装饰元素 */
+.background-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    filter: blur(40px);
+}
+
+.shape1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    left: -150px;
+    background: rgba(110, 142, 251, 0.1);
+}
+
+.shape2 {
+    width: 400px;
+    height: 400px;
+    bottom: -200px;
+    right: -200px;
+    background: rgba(167, 119, 227, 0.1);
+}
+
+.shape3 {
+    width: 250px;
+    height: 250px;
+    top: 30%;
+    right: 10%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.shape4 {
+    width: 200px;
+    height: 200px;
+    bottom: 30%;
+    left: 10%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 毛玻璃卡片基础样式 */
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 主内容区域布局 */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+/* 个人信息区域 */
+.profile-section {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.avatar-frame {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-glow {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(10px);
+    z-index: 1;
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.bio {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto 25px;
+    font-size: 1.05rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+.contact-item i {
+    font-size: 1.2rem;
+    width: 24px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 技能与兴趣区域 */
+.skills-section h2, .social-section h2, .portfolio-section h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.skills-section h2 i, .social-section h2 i, .portfolio-section h2 i {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.skills-list {
+    margin-bottom: 30px;
+}
+
+.skill-item {
+    margin-bottom: 20px;
+}
+
+.skill-name {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.skill-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+.hobbies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hobby-tag {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 社交媒体区域 */
+.section-desc {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 18px 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.social-btn i {
+    font-size: 1.5rem;
+}
+
+.xhs-btn {
+    background: rgba(255, 51, 102, 0.2);
+    color: #fff;
+}
+
+.xhs-btn:hover {
+    background: rgba(255, 51, 102, 0.4);
+    transform: translateY(-3px);
+}
+
+.bilibili-btn {
+    background: rgba(0, 169, 224, 0.2);
+    color: #fff;
+}
+
+.bilibili-btn:hover {
+    background: rgba(0, 169, 224, 0.4);
+    transform: translateY(-3px);
+}
+
+.github-btn {
+    background: rgba(24, 23, 23, 0.2);
+    color: #fff;
+}
+
+.github-btn:hover {
+    background: rgba(24, 23, 23, 0.4);
+    transform: translateY(-3px);
+}
+
+.dribbble-btn {
+    background: rgba(234, 76, 137, 0.2);
+    color: #fff;
+}
+
+.dribbble-btn:hover {
+    background: rgba(234, 76, 137, 0.4);
+    transform: translateY(-3px);
+}
+
+.social-stats {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 25px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
+}
+
+/* 作品展示区域 */
+.portfolio-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.portfolio-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-8px);
+}
+
+.portfolio-img {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+}
+
+.portfolio-item h3 {
+    color: #fff;
+    padding: 15px 20px 5px;
+    font-size: 1.3rem;
+}
+
+.portfolio-item p {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0 20px 20px;
+    font-size: 0.95rem;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    padding: 25px 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+    .main-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .profile-section {
+        grid-column: span 2;
+    }
+    
+    .social-section {
+        grid-column: span 2;
+    }
+    
+    .contact-info {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .profile-section {
+        grid-column: span 3;
+    }
+    
+    .skills-section {
+        grid-column: span 1;
+    }
+    
+    .social-section {
+        grid-column: span 2;
+    }
+    
+    .portfolio-section {
+        grid-column: span 3;
+    }
+    
+    .portfolio-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

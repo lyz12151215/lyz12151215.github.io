@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍 - 毛玻璃特效</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 背景图层 -->
+        <div class="background-area">
+            <div class="bg-shape shape1"></div>
+            <div class="bg-shape shape2"></div>
+            <div class="bg-shape shape3"></div>
+            <div class="bg-shape shape4"></div>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 个人信息卡片 -->
+            <section class="glass-card profile-section">
+                <div class="avatar-container">
+                    <div class="avatar-frame">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="个人头像" class="avatar">
+                    </div>
+                    <div class="avatar-glow"></div>
+                </div>
+                
+                <h1 class="name">张明</h1>
+                <p class="title">UI/UX设计师 & 前端开发者</p>
+                <p class="bio">专注于创造美观且功能强大的用户体验。热爱设计、技术和分享，希望用代码和设计让世界更美好。</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>zhangming@example.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+86 138-1234-5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>中国，上海</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 技能与兴趣卡片 -->
+            <section class="glass-card skills-section">
+                <h2><i class="fas fa-star"></i> 技能与专长</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span class="skill-name">UI/UX设计</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">前端开发</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">平面设计</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">摄影与视频</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2><i class="fas fa-heart"></i> 兴趣爱好</h2>
+                <div class="hobbies">
+                    <span class="hobby-tag">摄影</span>
+                    <span class="hobby-tag">旅行</span>
+                    <span class="hobby-tag">阅读</span>
+                    <span class="hobby-tag">咖啡</span>
+                    <span class="hobby-tag">音乐</span>
+                </div>
+            </section>
+            
+            <!-- 社交媒体链接卡片 -->
+            <section class="glass-card social-section">
+                <h2><i class="fas fa-share-alt"></i> 关注与联系</h2>
+                <p class="section-desc">欢迎通过以下平台与我交流，关注我的最新动态和作品分享。</p>
+                
+                <div class="social-links">
+                    <a href="https://www.xiaohongshu.com" target="_blank" class="social-btn xhs-btn">
+                        <i class="fab fa-pinterest"></i>
+                        <span>小红书</span>
+                    </a>
+                    
+                    <a href="https://www.bilibili.com" target="_blank" class="social-btn bilibili-btn">
+                        <i class="fab fa-bilibili"></i>
+                        <span>哔哩哔哩</span>
+                    </a>
+                    
+                    <a href="https://github.com" target="_blank" class="social-btn github-btn">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    
+                    <a href="https://dribbble.com" target="_blank" class="social-btn dribbble-btn">
+                        <i class="fab fa-dribbble"></i>
+                        <span>Dribbble</span>
+                    </a>
+                </div>
+                
+                <div class="social-stats">
+                    <div class="stat">
+                        <span class="stat-number">2.5k</span>
+                        <span class="stat-label">小红书粉丝</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15k</span>
+                        <span class="stat-label">B站关注</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">48</span>
+                        <span class="stat-label">项目作品</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 作品展示卡片 -->
+            <section class="glass-card portfolio-section">
+                <h2><i class="fas fa-briefcase"></i> 近期作品</h2>
+                <div class="portfolio-items">
+                    <div class="portfolio-item">
+                        <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                        <h3>电商App设计</h3>
+                        <p>为时尚品牌设计的移动端购物体验</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w-400&q=80');"></div>
+                        <h3>数据分析仪表盘</h3>
+                        <p>企业级数据可视化界面设计</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2023 张明 - 个人介绍页面 | 采用毛玻璃特效设计</p>
+            <p class="footer-links">
+                <a href="#">隐私政策</a> |
+                <a href="#">使用条款</a> |
+                <a href="mailto:zhangming@example.com">联系我</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
