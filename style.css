@@ -51,8 +51,10 @@ body {
     padding: 20px;
     line-height: 1.6;
     font-weight: 500;
+}
+
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     position: relative;
     padding-top: 90px; /* 为固定导航栏留出空间 */
@@ -688,7 +690,7 @@ body {
 }
 
 .meta-item i {
-    color: rgba(255, 255, 255, 0.9);
+    color: #FA8072; /* 改为鲑鱼红色 #FA8072 */
     font-size: 0.9rem;
     width: 16px;
     text-align: center;
@@ -799,7 +801,7 @@ body {
 }
 
 .article-meta i {
-    color: #fa8072;
+    color: #FA8072; /* 改为鲑鱼红色 #FA8072 */
     font-size: 0.9rem;
 }
 
@@ -837,7 +839,7 @@ body {
     color: #fff !important;
     font-size: 1.6rem;
     margin: 25px 0 12px;
-    border-left: 4px solid #fa8072;
+    border-left: 4px solid #FA8072; /* 改为鲑鱼红色 #FA8072 */
     padding-left: 12px;
 }
 
@@ -874,7 +876,7 @@ body {
 }
 
 .article-content blockquote {
-    border-left: 4px solid #fa8072;
+    border-left: 4px solid #FA8072; /* 改为鲑鱼红色 #FA8072 */
     padding-left: 15px;
     margin: 15px 0;
     font-style: italic;
@@ -915,6 +917,352 @@ body {
 
 .download-article-btn i {
     font-size: 1.1rem;
+}
+
+/* ========== 游戏页面样式 - 修改游戏信息横向布局 ========== */
+.game-section {
+    min-height: auto;
+    padding: 30px !important;
+    width: 100%;
+}
+
+.game-section h2 {
+    color: #fff !important;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.game-section .section-desc {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* 游戏控制面板 - 7个内容并排放置 */
+.game-controls {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* 游戏信息区域 - 4个指标横向排列（图标在左，标题在中，数据在右） */
+.game-info {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.score-display, .high-score-display, .level-display {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 120px;
+}
+
+/* 难度显示 - 与等级板块一致 */
+.difficulty-display {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 120px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-display:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 图标样式 - 在左侧 */
+.score-display i, .high-score-display i, .level-display i {
+    font-size: 1.5rem;
+    color: #FFD700;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.high-score-display i {
+    color: #FF6347;
+}
+
+.level-display i {
+    color: #32CD32;
+}
+
+.difficulty-display i {
+    font-size: 1.5rem;
+    color: #FFA500; /* 橙色表示难度 */
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* 标题和内容容器 */
+.score-info, .high-score-info, .level-info, .difficulty-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+/* 标题样式 - 在图标后面，加粗 */
+.score-label, .high-score-label, .level-label, .difficulty-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 700; /* 加粗 */
+    margin-bottom: 2px;
+}
+
+/* 数据样式 - 在标题下面，比标题小一点 */
+.score-value, .high-score-value, .level-value, .difficulty-value {
+    color: #fff;
+    font-size: 1.1rem; /* 比标题小一点 */
+    font-weight: 600;
+    display: block;
+}
+
+/* 游戏按钮组 - 4个图标按钮并排 */
+.game-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 图标按钮样式 */
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.start-btn {
+    background: rgba(76, 175, 80, 0.25);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.start-btn:hover {
+    background: rgba(76, 175, 80, 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+}
+
+.pause-btn {
+    background: rgba(255, 193, 7, 0.25);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.pause-btn:hover {
+    background: rgba(255, 193, 7, 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);
+}
+
+.restart-btn {
+    background: rgba(33, 150, 243, 0.25);
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.restart-btn:hover {
+    background: rgba(33, 150, 243, 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
+}
+
+.home-btn {
+    background: rgba(156, 39, 176, 0.25);
+    border: 1px solid rgba(156, 39, 176, 0.3);
+}
+
+.home-btn:hover {
+    background: rgba(156, 39, 176, 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(156, 39, 176, 0.2);
+}
+
+.icon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* 隐藏的难度选择器 */
+.difficulty-selector {
+    display: none;
+}
+
+/* 游戏画布容器 */
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 auto 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 3/2;
+}
+
+#gameCanvas {
+    display: block;
+    background: #1a1a2e;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+}
+
+/* 游戏开始和结束屏幕 */
+.game-start-screen, .game-over-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    z-index: 10;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-start-screen {
+    display: flex;
+}
+
+.game-over-screen {
+    display: none;
+}
+
+.game-start-screen h3, .game-over-screen h3 {
+    font-size: 2rem;
+    color: #FF6347;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(255, 99, 71, 0.5);
+}
+
+.game-over-screen p, .game-start-screen p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.game-start-screen p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+#finalScore {
+    font-size: 1.5rem;
+    color: #FFD700;
+    font-weight: 700;
+}
+
+/* 游戏说明 */
+.game-instructions {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-instructions h3 {
+    color: #fff !important;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-instructions h3 i {
+    color: #4CAF50;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.instruction-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instruction-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-3px);
+}
+
+.instruction-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.instruction-icon i {
+    font-size: 1.5rem;
+    color: #FFA500;
+}
+
+.instruction-text h4 {
+    color: #fff;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.instruction-text p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 /* 页脚 */
@@ -959,16 +1307,22 @@ body {
     }
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 平板及以上 */
 @media (min-width: 768px) {
     .main-content {
         grid-template-columns: 2fr 1fr;
     }
     
+    /* 游戏页面桌面布局 */
+    .game-controls {
+        flex-wrap: nowrap;
+    }
+    
     /* 下载和教程页面使用全宽布局 */
     #download .main-content,
     #tutorial .main-content,
-    #article-detail .main-content {
+    #article-detail .main-content,
+    #game .main-content {
         grid-template-columns: 1fr !important;
     }
     
@@ -1056,6 +1410,7 @@ body {
     }
 }
 
+/* 响应式设计 - 移动端 */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -1105,23 +1460,48 @@ body {
         }
     }
     
-    /* 下载和教程页面的响应式调整 */
-    .download-items {
+    /* 游戏页面移动端调整 */
+    .game-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .game-info {
+        flex-wrap: wrap;
+        justify-content: center;
+        min-width: auto;
+    }
+    
+    .score-display, .high-score-display, .level-display, .difficulty-display {
+        min-width: 110px;
+        padding: 10px 12px;
+    }
+    
+    .score-display i, .high-score-display i, .level-display i, .difficulty-display i {
+        font-size: 1.3rem;
+        margin-right: 10px;
+    }
+    
+    .score-label, .high-score-label, .level-label, .difficulty-label {
+        font-size: 0.85rem;
+    }
+    
+    .score-value, .high-score-value, .level-value, .difficulty-value {
+        font-size: 1rem;
+    }
+    
+    .game-buttons {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .instructions-grid {
         grid-template-columns: 1fr;
     }
     
-    .download-item {
-        padding: 20px;
-    }
-    
-    .tutorial-item {
+    .instruction-item {
         flex-direction: column;
-    }
-    
-    .tutorial-img {
-        width: 100%;
-        height: 180px;
-        min-width: auto;
+        text-align: center;
     }
     
     /* 文章详情页面响应式 */
@@ -1165,6 +1545,63 @@ body {
     .article-footer {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    /* 下载和教程页面的响应式调整 */
+    .download-items {
+        grid-template-columns: 1fr;
+    }
+    
+    .download-item {
+        padding: 20px;
+    }
+    
+    .tutorial-item {
+        flex-direction: column;
+    }
+    
+    .tutorial-img {
+        width: 100%;
+        height: 180px;
+        min-width: auto;
+    }
+}
+
+/* 非常小的屏幕 */
+@media (max-width: 480px) {
+    .game-info {
+        flex-direction: column;
+        min-width: auto;
+    }
+    
+    .score-display, .high-score-display, .level-display, .difficulty-display {
+        min-width: auto;
+        width: 100%;
+        padding: 8px 10px;
+    }
+    
+    .score-display i, .high-score-display i, .level-display i, .difficulty-display i {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
+    
+    .score-value, .high-score-value, .level-value, .difficulty-value {
+        font-size: 1rem;
+    }
+    
+    .score-label, .high-score-label, .level-label, .difficulty-label {
+        font-size: 0.7rem;
+    }
+    
+    .game-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .icon-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
     }
 }
 
