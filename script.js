@@ -1134,83 +1134,143 @@ function applyMobileOptimizations() {
 }
 
 // 设置移动端触摸控制
-function setupMobileTouchControls() {
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+// file name: script.js - 修改部分
+
+// file name: script.js - 修改触摸反馈逻辑
+
+// ========== 移动端触摸控制优化 - 修改函数 ==========
+function setupTouchOptimizations() {
+    // 为所有可点击元素添加触摸反馈
+    const touchElements = document.querySelectorAll(
+        '.nav-link, .social-btn, .download-btn, .tutorial-item, ' +
+        '.download-item, .direction-btn, .icon-btn, .back-to-tutorial-btn, ' +
+        '.download-article-btn, .back-home-btn, .mobile-nav-link, ' +
+        '.meta-item, .instruction-item, .glass-card'
+    );
     
-    mobileNavLinks.forEach(link => {
-        // 添加点击事件
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pageId = this.getAttribute('data-page');
-            if (pageId) {
-                switchPage(pageId);
-                window.location.hash = pageId;
-                
-                // 添加点击反馈
+    touchElements.forEach(element => {
+        // 移除之前的触摸事件监听器
+        const newElement = element.cloneNode(true);
+        element.parentNode.replaceChild(newElement, element);
+        
+        // 触摸开始 - 使用更安全的反馈
+        newElement.addEventListener('touchstart', function(e) {
+            // 使用背景颜色变化而不是transform
+            if (this.classList.contains('glass-card') ||
+                this.classList.contains('tutorial-item') ||
+                this.classList.contains('download-item')) {
+                // 毛玻璃容器使用边框高亮
+                this.style.boxShadow = '0 0 0 2px rgba(255, 255, 255, 0.3) inset';
+            } else if (this.classList.contains('direction-btn')) {
+                // 方向按钮使用轻微缩放
                 this.style.transform = 'scale(0.95)';
-                this.style.opacity = '0.8';
-                setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.opacity = '';
-                }, 150);
+            } else {
+                // 其他元素使用背景颜色变化
+                const currentBg = window.getComputedStyle(this).backgroundColor;
+                this.dataset.originalBg = currentBg;
+                this.style.backgroundColor = this.getActiveBackgroundColor();
             }
-        });
-        
-        // 添加触摸反馈
-        link.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.9)';
-            this.style.opacity = '0.7';
         }, { passive: true });
         
-        link.addEventListener('touchend', function() {
+        // 触摸结束
+        newElement.addEventListener('touchend', function(e) {
+            // 恢复原样
+            this.style.boxShadow = '';
             this.style.transform = '';
-            this.style.opacity = '';
+            if (this.dataset.originalBg) {
+                this.style.backgroundColor = this.dataset.originalBg;
+                delete this.dataset.originalBg;
+            }
         }, { passive: true });
         
-        // 长按显示文字
-        let longPressTimer;
-        const longPressDuration = 800;
-        
-        link.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            longPressTimer = setTimeout(() => {
-                // 长按时显示文字
-                const span = this.querySelector('span');
-                if (span) {
-                    span.style.display = 'block';
-                    span.style.opacity = '0';
-                    span.style.fontSize = '0.7rem';
-                    span.style.marginTop = '2px';
-                    span.style.color = 'rgba(255, 255, 255, 0.9)';
-                    span.style.textAlign = 'center';
-                    span.style.transition = 'opacity 0.3s ease';
-                    
-                    // 触发重绘
-                    void span.offsetWidth;
-                    
-                    span.style.opacity = '1';
-                    
-                    // 3秒后隐藏文字
-                    setTimeout(() => {
-                        if (span.style.opacity === '1') {
-                            span.style.opacity = '0';
-                            setTimeout(() => {
-                                span.style.display = '';
-                            }, 300);
-                        }
-                    }, 3000);
-                }
-            }, longPressDuration);
-        }, { passive: false });
-        
-        link.addEventListener('touchend', function() {
-            clearTimeout(longPressTimer);
-        }, { passive: true });
-        
-        link.addEventListener('touchcancel', function() {
-            clearTimeout(longPressTimer);
+        // 触摸取消
+        newElement.addEventListener('touchcancel', function(e) {
+            // 恢复原样
+            this.style.boxShadow = '';
+            this.style.transform = '';
+            if (this.dataset.originalBg) {
+                this.style.backgroundColor = this.dataset.originalBg;
+                delete this.dataset.originalBg;
+            }
         }, { passive: true });
     });
+}
+
+// 获取元素的激活状态背景颜色
+function getActiveBackgroundColor() {
+    // 根据元素类型返回不同的激活背景色
+    if (this.classList.contains('social-btn')) {
+        // 社交媒体按钮
+        if (this.querySelector('.fa-book-open')) {
+            return 'rgba(255, 46, 76, 0.35)'; // 小红书
+        } else if (this.querySelector('.fa-bilibili')) {
+            return 'rgba(90, 170, 230, 0.35)'; // B站
+        } else {
+            return 'rgba(90, 90, 100, 0.35)'; // GitHub
+        }
+    } else if (this.classList.contains('download-btn')) {
+        return 'rgba(255, 255, 255, 0.35)'; // 下载按钮
+    } else if (this.classList.contains('glass-card')) {
+        return 'rgba(255, 255, 255, 0.3)'; // 毛玻璃卡片
+    } else if (this.classList.contains('nav-link') || this.classList.contains('mobile-nav-link')) {
+        return 'rgba(255, 255, 255, 0.25)'; // 导航链接
+    } else {
+        return 'rgba(255, 255, 255, 0.2)'; // 默认
+    }
+}
+
+// 为Element原型添加方法
+Element.prototype.getActiveBackgroundColor = getActiveBackgroundColor;
+
+// ========== 修改方向按钮控制函数 ==========
+function handleDirectionButtonClick(direction) {
+    if (!snakeGame || !snakeGame.gameRunning || snakeGame.isPaused) {
+        return;
+    }
+    
+    console.log('方向按钮点击:', direction);
+    
+    // 添加视觉反馈 - 修改为更安全的方式
+    const buttonId = direction + 'Btn';
+    const button = document.getElementById(buttonId);
+    if (button) {
+        // 保存原始背景
+        const originalBg = window.getComputedStyle(button).backgroundColor;
+        button.dataset.originalBg = originalBg;
+        
+        // 根据按钮类型设置激活背景
+        let activeBg;
+        switch(direction) {
+            case 'up':
+                activeBg = 'rgba(76, 175, 80, 0.4)';
+                break;
+            case 'down':
+                activeBg = 'rgba(33, 150, 243, 0.4)';
+                break;
+            case 'left':
+                activeBg = 'rgba(255, 193, 7, 0.4)';
+                break;
+            case 'right':
+                activeBg = 'rgba(156, 39, 176, 0.4)';
+                break;
+        }
+        
+        button.style.backgroundColor = activeBg;
+        
+        // 快速恢复
+        setTimeout(() => {
+            button.style.backgroundColor = originalBg;
+            delete button.dataset.originalBg;
+        }, 150);
+    }
+    
+    // 震动反馈（移动设备）
+    if (navigator.vibrate && window.innerWidth <= 768) {
+        navigator.vibrate(30);
+    }
+    
+    // 改变蛇的方向
+    snakeGame.changeDirection(direction);
 }
 
 // 防止移动端缩放

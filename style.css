@@ -2159,6 +2159,7 @@ body {
         min-width: 60px;
         min-height: 60px;
         position: relative;
+        background: transparent; /* 默认无背景 */
     }
     
     .mobile-nav-link i {
@@ -3058,5 +3059,309 @@ body {
         min-width: 200px;
         height: auto;
         min-height: auto;
+    }
+}
+
+
+/* file name: style.css - 修复毛玻璃效果消失问题 */
+
+/* 修复移动端触摸反馈导致的毛玻璃效果消失 */
+@media (max-width: 768px) {
+    /* 修改触摸反馈样式，避免影响毛玻璃效果 */
+    .nav-link:active,
+    .social-btn:active,
+    .download-btn:active,
+    .tutorial-item:active,
+    .download-item:active,
+    .mobile-nav-link:active,
+    .meta-item:active,
+    .direction-btn:active,
+    .icon-btn:active,
+    .back-to-tutorial-btn:active,
+    .download-article-btn:active,
+    .back-home-btn:active {
+        /* 使用更安全的反馈效果 */
+        background-color: rgba(255, 255, 255, 0.3) !important;
+        /* 避免使用transform，它可能影响backdrop-filter */
+        transform: none !important;
+        opacity: 1 !important;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    /* 移除可能影响backdrop-filter的样式 */
+    .nav-link,
+    .social-btn,
+    .download-btn,
+    .tutorial-item,
+    .download-item,
+    .mobile-nav-link,
+    .meta-item,
+    .direction-btn,
+    .icon-btn,
+    .back-to-tutorial-btn,
+    .download-article-btn,
+    .back-home-btn {
+        /* 确保backdrop-filter正常工作 */
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transform-style: preserve-3d;
+        will-change: background-color;
+        /* 移除可能影响渲染的属性 */
+        backface-visibility: hidden;
+    }
+    
+    /* 修复毛玻璃卡片本身 */
+    .glass-card {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        /* 确保点击时效果不消失 */
+        will-change: background-color;
+    }
+    
+    /* 修复教程项和下载项的毛玻璃效果 */
+    .tutorial-item,
+    .download-item {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+    }
+    
+    /* 移除可能导致问题的:hover样式 */
+    .tutorial-item:hover,
+    .download-item:hover {
+        transform: none;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 移除过渡效果中的transform */
+    .tutorial-item,
+    .download-item {
+        transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+}
+
+/* 修复触摸反馈样式，确保毛玻璃效果不消失 */
+@media (hover: none) and (pointer: coarse) {
+    /* 简化触摸反馈，避免影响backdrop-filter */
+    .nav-link:active,
+    button:active,
+    .social-btn:active,
+    .download-btn:active,
+    .tutorial-item:active,
+    .download-item:active,
+    .mobile-nav-link:active,
+    .meta-item:active,
+    .direction-btn:active,
+    .icon-btn:active {
+        /* 只改变背景颜色，避免使用transform和opacity */
+        background-color: rgba(255, 255, 255, 0.3) !important;
+        opacity: 1 !important;
+        transform: none !important;
+        /* 添加边框高亮效果 */
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) inset !important;
+    }
+    
+    /* 确保所有可点击元素保持毛玻璃效果 */
+    .nav-link,
+    .social-btn,
+    .download-btn,
+    .glass-card,
+    .tutorial-item,
+    .download-item,
+    .mobile-nav-link,
+    .meta-item {
+        /* 强制保持backdrop-filter */
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+}
+
+
+/* file name: style.css - 移动端底部导航栏，矩形背景，无文字 */
+
+/* ==================== 修复移动端底部导航栏 ==================== */
+
+/* 移动端底部导航栏 - 保持背景 */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 999;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 导航链接基础样式 - 完全透明的背景，只显示图标 */
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 14px 14px;
+    position: relative;
+    /* 完全透明，没有背景 */
+    background: transparent !important;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+/* 导航链接图标 - 未选中状态 */
+.mobile-nav-link i {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+/* 隐藏所有文字 */
+.mobile-nav-link span {
+    display: none !important;
+}
+
+/* 激活状态的导航链接 - 只有被选中时才有毛玻璃矩形背景 */
+.mobile-nav-link.active {
+    /* 被选中时才显示毛玻璃矩形背景 */
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* 激活状态下的图标 */
+.mobile-nav-link.active i {
+    color: #fff;
+    font-size: 1.8rem;
+}
+
+/* 触摸反馈 */
+.mobile-nav-link:active {
+    opacity: 0.7;
+}
+
+/* 激活状态的触摸反馈 */
+.mobile-nav-link.active:active {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* 超小屏幕优化 */
+@media (max-width: 375px) {
+    .mobile-bottom-nav {
+        width: 95%;
+        padding: 10px 15px;
+        bottom: 15px;
+        max-width: 350px;
+    }
+    
+    .mobile-nav-link {
+        padding: 10px 14px;
+        min-width: 45px;
+        min-height: 45px;
+    }
+    
+    .mobile-nav-link i {
+        font-size: 1.4rem;
+    }
+    
+    .mobile-nav-link.active i {
+        font-size: 1.6rem;
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .mobile-bottom-nav {
+        bottom: 10px;
+        padding: 8px 15px;
+        max-width: 350px;
+    }
+    
+    .mobile-nav-link {
+        padding: 8px 12px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .mobile-nav-link i {
+        font-size: 1.3rem;
+    }
+    
+    .mobile-nav-link.active i {
+        font-size: 1.5rem;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .mobile-nav-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .mobile-nav-link:active {
+        opacity: 0.7;
+    }
+    
+    .mobile-nav-link.active:active {
+        opacity: 0.8;
+        transform: scale(0.95) translateY(-2px);
+    }
+}
+
+/* 移除之前的所有额外背景、边框和文字 */
+.mobile-nav-link::before,
+.mobile-nav-link::after {
+    display: none !important;
+}
+
+/* 确保没有意外的背景和文字 */
+.mobile-nav-link {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.mobile-nav-link:not(.active) {
+    /* 未选中状态确保没有背景 */
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 移除所有文字的显示 */
+.mobile-nav-link span {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* 移除长按显示文字的功能 */
+@media (max-width: 768px) {
+    .mobile-nav-link.long-press span {
+        display: none !important;
+    }
+}
+
+/* 触摸设备长按优化 */
+@media (hover: none) and (pointer: coarse) {
+    .mobile-nav-link.long-press span {
+        display: none !important;
     }
 }
