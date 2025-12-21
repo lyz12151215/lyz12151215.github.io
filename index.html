@@ -2,31 +2,58 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 移动端优化meta标签 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffbb35">
+    <meta name="format-detection" content="telephone=no">
+    
     <title>LYZ</title>
     <link rel="icon" href="/images/logo.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* 初始隐藏非介绍页面 */
-        #download, #tutorial, #article-detail, #game {
+        #download, #tutorial, #article-detail, #game, #portfolio {
             display: none;
         }
         #intro {
             display: block;
         }
+        
+        /* 移动端特定样式 */
+        @media (max-width: 768px) {
+            :root {
+                --safe-area-inset-top: env(safe-area-inset-top, 0px);
+                --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            }
+            
+            body {
+                padding-left: calc(10px + var(--safe-area-inset-left, 0px));
+                padding-right: calc(10px + var(--safe-area-inset-right, 0px));
+            }
+            
+            .container {
+                padding-top: calc(75px + var(--safe-area-inset-top, 0px));
+            }
+            
+            .top-nav {
+                top: calc(15px + var(--safe-area-inset-top, 0px));
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 顶栏导航 - 悬浮于其他内容之上 -->
+        <!-- 顶栏导航 - 桌面版显示完整菜单 -->
         <nav class="top-nav">
             <div class="nav-container">
                 <div class="nav-logo">
                     <img src="user.jpeg" alt="头像" style="width: 36px; height: 36px; border-radius: 50%; margin-right: 10px;">
                     <span>LYZ</span>
                 </div>
-                <!-- 导航链接部分 -->
+                <!-- 桌面导航链接部分 - 移动端隐藏 -->
                 <div class="nav-links">
                     <a href="#intro" class="nav-link active" data-page="intro">
                         <i class="fas fa-user"></i>
@@ -40,13 +67,19 @@
                         <i class="fas fa-graduation-cap"></i>
                         <span>教程</span>
                     </a>
+                    <!-- 在游戏链接后添加作品链接 -->
+                    <a href="#portfolio" class="nav-link" data-page="portfolio">
+                        <i class="fas fa-briefcase"></i>
+                        <span>作品</span>
+                    </a>
                     <!-- 添加游戏链接 -->
                     <a href="#game" class="nav-link" data-page="game">
                         <i class="fas fa-gamepad"></i>
                         <span>游戏</span>
                     </a>
                 </div>
-                <div class="nav-toggle" id="navToggle">
+                <!-- 移动端汉堡菜单按钮 - 已不再需要，保留但隐藏 -->
+                <div class="nav-toggle" id="navToggle" style="display: none;">
                     <i class="fas fa-bars"></i>
                 </div>
             </div>
@@ -324,6 +357,79 @@
                 </main>
             </div>
             
+            <!-- 作品页面 -->
+            <div id="portfolio" class="page">
+                <main class="main-content">
+                    <section class="glass-card portfolio-section">
+                        <h2><i class="fas fa-briefcase"></i> 我的作品集</h2>
+                        <p class="section-desc">这里展示我的个人项目和创作成果，每个项目都包含详细的技术实现和应用场景。</p>
+                        
+                        <div class="portfolio-list">
+                            <!-- 作品项 1 - 与教程页格式一致 -->
+                            <div class="tutorial-item" data-article-id="personal-portfolio">
+                                <div class="tutorial-img" style="background-image: linear-gradient(135deg, rgba(255, 187, 53, 0.8), rgba(255, 170, 86, 0.8));">
+                                    <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div class="tutorial-content">
+                                    <h3>个人作品集网站</h3>
+                                    <p>使用HTML5、CSS3和JavaScript创建的响应式个人作品展示网站，采用毛玻璃设计风格。</p>
+                                    <div class="tutorial-meta">
+                                        <div class="meta-item">
+                                            <i class="far fa-clock"></i>
+                                            <span>2024年3月</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-code"></i>
+                                            <span>前端开发</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>HTML/CSS/JS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <!-- 作品项 2 -->
+                            <div class="tutorial-item" data-article-id="utility-tools">
+                                <div class="tutorial-img" style="background-image: linear-gradient(135deg, rgba(33, 150, 243, 0.8), rgba(21, 101, 192, 0.8));">
+                                    <i class="fas fa-tools" style="font-size: 3rem; color: white;"></i>
+                                </div>
+                                <div class="tutorial-content">
+                                    <h3>Scratch伪系统</h3>
+                                    <p>开发了一系列Scratch伪系统，包括lOS等。</p>
+                                    <div class="tutorial-meta">
+                                        <div class="meta-item">
+                                            <i class="far fa-clock"></i>
+                                            <span>2023年12月</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-toolbox"></i>
+                                            <span>伪系统</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>Scratch(TurboWarp)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="tutorial-cta">
+                            <p>想要查看更多项目或合作机会？欢迎通过邮件或社交媒体与我联系！</p>
+                            <button class="back-home-btn" data-page="intro">
+                                <i class="fas fa-arrow-left"></i>
+                                返回介绍
+                            </button>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            
             <!-- 游戏页面 -->
             <div id="game" class="page">
                 <main class="main-content">
@@ -331,9 +437,9 @@
                         <h2><i class="fas fa-gamepad"></i> 贪吃蛇游戏</h2>
                         <p class="section-desc">经典的贪吃蛇游戏，使用方向键控制蛇的移动，吃到食物变长，碰到墙壁或自己身体游戏结束。</p>
                         
-                        <!-- 游戏控制面板 - 7个内容并排放置 -->
+                        <!-- 游戏控制面板 -->
                         <div class="game-controls">
-                            <!-- 游戏信息区域 - 4个指标横向排列（图标在左，标题在中，数据在右） -->
+                            <!-- 游戏信息区域 -->
                             <div class="game-info">
                                 <div class="score-display">
                                     <i class="fas fa-star"></i>
@@ -356,7 +462,7 @@
                                         <span class="level-value" id="level">1</span>
                                     </div>
                                 </div>
-                                <!-- 难度选择 - 与等级板块格式一致 -->
+                                <!-- 难度选择 -->
                                 <div class="difficulty-display">
                                     <i class="fas fa-tachometer-alt"></i>
                                     <div class="difficulty-info">
@@ -366,7 +472,7 @@
                                 </div>
                             </div>
                             
-                            <!-- 游戏按钮组 - 4个图标按钮并排 -->
+                            <!-- 游戏按钮组 -->
                             <div class="game-buttons">
                                 <button id="startGame" class="icon-btn start-btn" title="开始游戏">
                                     <i class="fas fa-play"></i>
@@ -413,7 +519,7 @@
                                 </div>
                             </div>
                             
-                            <!-- 移动设备方向控制按钮 - 始终显示并与游戏容器并排放置 -->
+                            <!-- 移动设备方向控制按钮 -->
                             <div class="mobile-controls">
                                 <div class="direction-controls">
                                     <button class="direction-btn up-btn" id="upBtn" title="向上">

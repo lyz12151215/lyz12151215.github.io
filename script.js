@@ -61,7 +61,7 @@ const articles = {
             </div>
         `
     },
-    'misakaX软件使用指南': {
+    '电脑工具软件破解指南': {
         id: 'pc-tool-crack-guide',
         title: '电脑工具软件破解指南',
         date: '2024-03-18',
@@ -210,6 +210,8 @@ const articles = {
 
 // 当前文章变量
 let currentArticle = null;
+// 贪吃蛇游戏实例
+let snakeGame = null;
 
 // ========== 贪吃蛇游戏逻辑 ==========
 class SnakeGame {
@@ -234,8 +236,8 @@ class SnakeGame {
         this.isPaused = false;
         this.gameRunning = false;
         
-        // 边缘安全距离 - 新添加的属性
-        this.edgeSafeDistance = 2; // 距离边缘的安全格子数
+        // 边缘安全距离
+        this.edgeSafeDistance = 2;
         
         // 确保画布有正确的尺寸
         this.resizeCanvas();
@@ -259,7 +261,14 @@ class SnakeGame {
         this.canvas.width = container.clientWidth;
         this.canvas.height = container.clientHeight;
         
-        console.log('画布尺寸调整:', this.canvas.width, this.canvas.height);
+        // 移动端优化：确保画布尺寸合理
+        if (window.innerWidth <= 768) {
+            // 移动端限制最大尺寸
+            const maxWidth = Math.min(this.canvas.width, 600);
+            const maxHeight = Math.min(this.canvas.height, 400);
+            this.canvas.width = maxWidth;
+            this.canvas.height = maxHeight;
+        }
     }
     
     init() {
@@ -297,7 +306,6 @@ class SnakeGame {
         const difficultySelect = document.getElementById('difficulty');
         
         if (difficultyElement && difficultySelect) {
-            // 获取当前选择的难度选项
             const selectedOption = difficultySelect.options[difficultySelect.selectedIndex];
             difficultyElement.textContent = selectedOption.text;
         }
@@ -419,23 +427,27 @@ class SnakeGame {
     }
     
     setSpeedByDifficulty(difficulty) {
+        // 移动端适当降低速度
+        const isMobile = window.innerWidth <= 768;
+        const mobileBonus = isMobile ? 20 : 0;
+        
         switch(difficulty) {
             case 'easy':
-                this.speed = 200;
+                this.speed = 200 + mobileBonus;
                 break;
             case 'medium':
-                this.speed = 150;
+                this.speed = 150 + mobileBonus;
                 break;
             case 'hard':
-                this.speed = 100;
+                this.speed = 100 + mobileBonus;
                 break;
             case 'expert':
-                this.speed = 70;
+                this.speed = 70 + mobileBonus;
                 break;
             default:
-                this.speed = 150;
+                this.speed = 150 + mobileBonus;
         }
-        console.log('游戏速度设置:', difficulty, this.speed);
+        console.log('游戏速度设置:', difficulty, this.speed, '移动端:', isMobile);
     }
     
     generateFood() {
@@ -454,7 +466,6 @@ class SnakeGame {
             attempts++;
             
             // 生成在安全区域内的随机位置
-            // 确保食物距离边缘至少有 edgeSafeDistance 个格子的距离
             this.food.x = Math.floor(Math.random() * (gridWidth - 2 * this.edgeSafeDistance)) + this.edgeSafeDistance;
             this.food.y = Math.floor(Math.random() * (gridHeight - 2 * this.edgeSafeDistance)) + this.edgeSafeDistance;
             
@@ -469,14 +480,11 @@ class SnakeGame {
             // 防止无限循环
             if (attempts > maxAttempts) {
                 console.warn('生成食物失败，尝试次数过多，放宽边缘限制');
-                // 如果尝试次数过多，放宽边缘限制
                 this.food.x = Math.floor(Math.random() * gridWidth);
                 this.food.y = Math.floor(Math.random() * gridHeight);
                 break;
             }
         } while (foodOnSnake);
-        
-        console.log('食物生成位置:', this.food.x, this.food.y, '网格尺寸:', gridWidth, 'x', gridHeight);
     }
     
     update() {
@@ -577,7 +585,7 @@ class SnakeGame {
         
         // 绘制蛇
         this.snake.forEach((segment, index) => {
-            this.ctx.fillStyle = index === 0 ? '#4CAF50' : '#8BC34A'; // 头部和身体不同颜色
+            this.ctx.fillStyle = index === 0 ? '#4CAF50' : '#8BC34A';
             this.ctx.fillRect(
                 segment.x * this.gridSize,
                 segment.y * this.gridSize,
@@ -722,12 +730,7 @@ class SnakeGame {
     }
 }
 
-// 贪吃蛇游戏实例
-let snakeGame = null;
-
 // ========== 方向按钮控制函数 ==========
-
-// 方向按钮点击处理函数
 function handleDirectionButtonClick(direction) {
     if (!snakeGame || !snakeGame.gameRunning || snakeGame.isPaused) {
         return;
@@ -739,22 +742,33 @@ function handleDirectionButtonClick(direction) {
     const buttonId = direction + 'Btn';
     const button = document.getElementById(buttonId);
     if (button) {
-        button.classList.add('button-press-animation');
-        setTimeout(() => {
-            button.classList.remove('button-press-animation');
-        }, 200);
+        // 移动端使用不同的反馈
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            button.style.transform = 'scale(0.9)';
+            button.style.opacity = '0.7';
+            setTimeout(() => {
+                button.style.transform = '';
+                button.style.opacity = '';
+            }, 150);
+        } else {
+            button.classList.add('button-press-animation');
+            setTimeout(() => {
+                button.classList.remove('button-press-animation');
+            }, 200);
+        }
     }
     
-    // 添加震动反馈（移动设备）
-    if (navigator.vibrate) {
-        navigator.vibrate(50); // 震动50毫秒
+    // 震动反馈（移动设备）
+    if (navigator.vibrate && window.innerWidth <= 768) {
+        navigator.vibrate(30);
     }
     
     // 改变蛇的方向
     snakeGame.changeDirection(direction);
 }
 
-// ========== 页面切换函数 ==========
+// ========== 页面切换函数 - 修复版 ==========
 function switchPage(pageId) {
     console.log('切换到页面:', pageId);
     
@@ -762,34 +776,51 @@ function switchPage(pageId) {
     const pages = document.querySelectorAll('.page');
     pages.forEach(page => {
         page.style.display = 'none';
+        page.classList.remove('active');
     });
     
     // 显示目标页面
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.style.display = 'block';
+        targetPage.classList.add('active');
         console.log('页面显示成功:', pageId);
         
         // 滚动到顶部
         setTimeout(() => {
-            window.scrollTo(0, 0);
-        }, 10);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 50);
+        
+        // 更新桌面导航链接状态
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const linkPage = link.getAttribute('data-page');
+            if (linkPage === pageId) {
+                link.classList.add('active');
+            }
+        });
+        
+        // 更新移动端底部导航链接状态
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.classList.remove('active');
+            const linkPage = link.getAttribute('data-page');
+            if (linkPage === pageId) {
+                link.classList.add('active');
+            }
+        });
     }
-    
-    // 更新导航链接状态
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        const linkPage = link.getAttribute('data-page');
-        if (linkPage === pageId) {
-            link.classList.add('active');
-        }
-    });
     
     // 如果是游戏页面，确保游戏已初始化
     if (pageId === 'game') {
         setTimeout(() => {
             initGame();
+            // 移动端检测和优化
+            applyMobileOptimizations();
         }, 100);
     }
     
@@ -801,7 +832,7 @@ function loadArticle(title) {
     const article = articles[title];
     if (!article) return;
     
-    currentArticle = article; // 保存当前文章数据
+    currentArticle = article;
     
     document.getElementById('article-title').textContent = article.title;
     document.getElementById('article-date').textContent = article.date;
@@ -817,17 +848,13 @@ function loadArticle(title) {
 // ========== 下载相关函数 ==========
 function goToDownload() {
     if (currentArticle && currentArticle.downloadUrl) {
-        // 跳转到下载页面，同时传递文章信息
         switchPage('download');
         window.location.hash = 'download';
         
-        // 可选：滚动到对应的下载项目
         setTimeout(() => {
-            // 根据文章标题确定搜索关键词
             const articleTitle = currentArticle.title;
             let searchTerm = '';
             
-            // 根据文章标题确定搜索关键词
             if (articleTitle.includes('Office')) {
                 searchTerm = 'Office激活工具（MAC）';
             } else if (articleTitle.includes('电脑工具') || articleTitle.includes('misakaX')) {
@@ -842,7 +869,6 @@ function goToDownload() {
                     if (item.textContent.includes(searchTerm)) {
                         const downloadItem = item.closest('.download-item');
                         
-                        // 创建并添加高亮动画样式
                         if (!document.querySelector('#highlight-style')) {
                             const style = document.createElement('style');
                             style.id = 'highlight-style';
@@ -870,15 +896,12 @@ function goToDownload() {
                             document.head.appendChild(style);
                         }
                         
-                        // 添加高亮类
                         downloadItem.classList.add('highlight-download-item');
                         
-                        // 动画结束后移除类
                         setTimeout(() => {
                             downloadItem.classList.remove('highlight-download-item');
                         }, 2000);
                         
-                        // 滚动到该下载项
                         downloadItem.scrollIntoView({
                             behavior: 'smooth',
                             block: 'center'
@@ -888,7 +911,6 @@ function goToDownload() {
             }
         }, 300);
     } else {
-        // 如果没有特定的下载链接，直接跳转到下载页面
         switchPage('download');
         window.location.hash = 'download';
     }
@@ -970,7 +992,7 @@ function initGame() {
         });
     }
     
-    // 重新开始按钮 - 修复两个按钮的绑定
+    // 重新开始按钮
     const restartButtons = document.querySelectorAll('#restartGame, #playAgain');
     restartButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -978,7 +1000,6 @@ function initGame() {
             console.log('重新开始按钮点击:', btn.id);
             if (snakeGame) {
                 snakeGame.restart();
-                // 如果是游戏结束屏幕的按钮，还需要开始游戏
                 if (btn.id === 'playAgain') {
                     setTimeout(() => {
                         snakeGame.start();
@@ -991,7 +1012,6 @@ function initGame() {
     // ========== 方向按钮事件绑定 ==========
     const directionButtons = ['up', 'down', 'left', 'right'];
     
-    // 为每个方向按钮添加触摸和点击事件
     directionButtons.forEach(direction => {
         const button = document.getElementById(direction + 'Btn');
         if (!button) return;
@@ -1007,51 +1027,33 @@ function initGame() {
             handleDirectionButtonClick(direction);
             
             // 添加触摸反馈
-            button.classList.add('button-press-animation');
+            button.style.transform = 'scale(0.9)';
+            button.style.opacity = '0.7';
+            
             setTimeout(() => {
-                button.classList.remove('button-press-animation');
-            }, 200);
-        });
+                button.style.transform = '';
+                button.style.opacity = '';
+            }, 150);
+        }, { passive: false });
         
         // 防止双击缩放
         button.addEventListener('touchend', (e) => {
             e.preventDefault();
         });
-        
-        // 鼠标按下效果
-        button.addEventListener('mousedown', () => {
-            button.style.transform = 'translateY(2px) scale(0.95)';
-            button.style.boxShadow = 'inset 0 3px 5px rgba(0, 0, 0, 0.2)';
-        });
-        
-        // 鼠标释放效果
-        button.addEventListener('mouseup', () => {
-            button.style.transform = '';
-            button.style.boxShadow = '';
-        });
-        
-        // 鼠标离开时重置效果
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = '';
-            button.style.boxShadow = '';
-        });
     });
     
     // ========== 难度控制 ==========
     
-    // 难度显示点击事件 - 点击切换难度
+    // 难度显示点击事件
     const difficultyDisplay = document.querySelector('.difficulty-display');
     if (difficultyDisplay) {
         difficultyDisplay.addEventListener('click', () => {
             console.log('难度显示点击');
             const difficultySelect = document.getElementById('difficulty');
             if (difficultySelect) {
-                // 切换到下一个难度选项
                 const currentIndex = difficultySelect.selectedIndex;
                 const nextIndex = (currentIndex + 1) % difficultySelect.options.length;
                 difficultySelect.selectedIndex = nextIndex;
-                
-                // 触发change事件
                 difficultySelect.dispatchEvent(new Event('change'));
             }
         });
@@ -1063,7 +1065,6 @@ function initGame() {
         difficultySelect.addEventListener('change', (e) => {
             console.log('难度改变:', e.target.value);
             
-            // 更新难度显示
             const difficultyValue = document.getElementById('difficultyValue');
             if (difficultyValue) {
                 difficultyValue.textContent = e.target.options[e.target.selectedIndex].text;
@@ -1083,8 +1084,6 @@ function initGame() {
     }
     
     // ========== 返回按钮 ==========
-    
-    // 返回介绍按钮
     const backHomeBtn = document.getElementById('backHome');
     if (backHomeBtn) {
         backHomeBtn.addEventListener('click', (e) => {
@@ -1100,68 +1099,225 @@ function initGame() {
     console.log('游戏初始化完成');
 }
 
-// ========== 哈希变化监听 ==========
+// ========== 移动端检测和优化 ==========
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") ||
+           (navigator.userAgent.indexOf('IEMobile') !== -1) ||
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|Mobile/i.test(navigator.userAgent);
+}
+
+// 应用移动端优化
+function applyMobileOptimizations() {
+    const isMobile = window.innerWidth <= 768 || isMobileDevice();
+    
+    if (!isMobile) return;
+    
+    console.log('检测到移动设备，应用优化...');
+    
+    // 添加移动端class
+    document.body.classList.add('is-mobile');
+    
+    // 调整游戏速度
+    if (snakeGame) {
+        snakeGame.speed = Math.max(snakeGame.speed, 130);
+        console.log('移动端游戏速度调整为:', snakeGame.speed);
+    }
+    
+    // 更新控制提示
+    const controlHint = document.querySelector('.control-hint p');
+    if (controlHint) {
+        controlHint.innerHTML = '<i class="fas fa-mobile-alt"></i> 使用下方方向按钮控制';
+    }
+    
+    // 优化触摸控制
+    setupMobileTouchControls();
+}
+
+// 设置移动端触摸控制
+function setupMobileTouchControls() {
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    mobileNavLinks.forEach(link => {
+        // 添加点击事件
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            if (pageId) {
+                switchPage(pageId);
+                window.location.hash = pageId;
+                
+                // 添加点击反馈
+                this.style.transform = 'scale(0.95)';
+                this.style.opacity = '0.8';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.opacity = '';
+                }, 150);
+            }
+        });
+        
+        // 添加触摸反馈
+        link.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.9)';
+            this.style.opacity = '0.7';
+        }, { passive: true });
+        
+        link.addEventListener('touchend', function() {
+            this.style.transform = '';
+            this.style.opacity = '';
+        }, { passive: true });
+        
+        // 长按显示文字
+        let longPressTimer;
+        const longPressDuration = 800;
+        
+        link.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            longPressTimer = setTimeout(() => {
+                // 长按时显示文字
+                const span = this.querySelector('span');
+                if (span) {
+                    span.style.display = 'block';
+                    span.style.opacity = '0';
+                    span.style.fontSize = '0.7rem';
+                    span.style.marginTop = '2px';
+                    span.style.color = 'rgba(255, 255, 255, 0.9)';
+                    span.style.textAlign = 'center';
+                    span.style.transition = 'opacity 0.3s ease';
+                    
+                    // 触发重绘
+                    void span.offsetWidth;
+                    
+                    span.style.opacity = '1';
+                    
+                    // 3秒后隐藏文字
+                    setTimeout(() => {
+                        if (span.style.opacity === '1') {
+                            span.style.opacity = '0';
+                            setTimeout(() => {
+                                span.style.display = '';
+                            }, 300);
+                        }
+                    }, 3000);
+                }
+            }, longPressDuration);
+        }, { passive: false });
+        
+        link.addEventListener('touchend', function() {
+            clearTimeout(longPressTimer);
+        }, { passive: true });
+        
+        link.addEventListener('touchcancel', function() {
+            clearTimeout(longPressTimer);
+        }, { passive: true });
+    });
+}
+
+// 防止移动端缩放
+function preventMobileZoom() {
+    document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+    
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+}
+
+// ========== 哈希变化监听 - 修复版 ==========
 function handleHashChange() {
     const hash = window.location.hash.substring(1);
     console.log('当前哈希:', hash);
     
-    if (hash && ['intro', 'download', 'tutorial', 'game', 'article-detail'].includes(hash)) {
+    // 检查是否是需要处理的页面
+    const validPages = ['intro', 'download', 'tutorial', 'game', 'portfolio', 'article-detail'];
+    
+    if (hash && validPages.includes(hash)) {
+        console.log('切换到页面:', hash);
         switchPage(hash);
-    } else if (hash.startsWith('article-')) {
+        return;
+    }
+    
+    if (hash.startsWith('article-')) {
         const articleId = hash.replace('article-', '');
         const article = Object.values(articles).find(a => a.id === articleId);
         if (article) {
             loadArticle(article.title);
             switchPage('article-detail');
-        } else {
-            switchPage('intro');
+            return;
         }
-    } else {
+    }
+    
+    // 如果没有匹配的页面，保持当前页面或默认为介绍页
+    const currentActivePage = document.querySelector('.page.active');
+    if (!currentActivePage || currentActivePage.id === 'intro') {
         switchPage('intro');
     }
 }
 
-// ========== 页面初始化 ==========
+// ========== 页面初始化 - 修复版 ==========
 document.addEventListener('DOMContentLoaded', function() {
     console.log('页面初始化开始...');
     
-    // ========== 导航菜单切换 ==========
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            const icon = this.querySelector('i');
-            if (icon) {
-                if (navLinks.classList.contains('active')) {
-                    icon.className = 'fas fa-times';
-                } else {
-                    icon.className = 'fas fa-bars';
-                }
-            }
-        });
+    // ========== 创建移动端底部导航栏 ==========
+    function createMobileBottomNav() {
+        // 检查是否已经存在
+        if (document.querySelector('.mobile-bottom-nav')) {
+            return;
+        }
         
-        // 点击链接后关闭移动菜单
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                    const icon = navToggle.querySelector('i');
-                    if (icon) {
-                        icon.className = 'fas fa-bars';
-                    }
-                }
-            });
-        });
+        const mobileBottomNav = document.createElement('div');
+        mobileBottomNav.className = 'mobile-bottom-nav';
+        mobileBottomNav.innerHTML = `
+            <a href="#intro" class="mobile-nav-link active" data-page="intro" data-title="介绍">
+                <i class="fas fa-user"></i>
+                <span>介绍</span>
+            </a>
+            <a href="#download" class="mobile-nav-link" data-page="download" data-title="下载">
+                <i class="fas fa-download"></i>
+                <span>下载</span>
+            </a>
+            <a href="#tutorial" class="mobile-nav-link" data-page="tutorial" data-title="教程">
+                <i class="fas fa-graduation-cap"></i>
+                <span>教程</span>
+            </a>
+            <a href="#portfolio" class="mobile-nav-link" data-page="portfolio" data-title="作品">
+                <i class="fas fa-briefcase"></i>
+                <span>作品</span>
+            </a>
+            <a href="#game" class="mobile-nav-link" data-page="game" data-title="游戏">
+                <i class="fas fa-gamepad"></i>
+                <span>游戏</span>
+            </a>
+        `;
+        
+        document.body.appendChild(mobileBottomNav);
+        
+        // 设置移动端导航
+        setupMobileTouchControls();
     }
     
-    // ========== 导航链接点击事件 ==========
+    // ========== 桌面导航链接点击事件 - 修复版 ==========
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        // 移除现有的事件监听器
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        // 重新绑定事件
+        newLink.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            
             const pageId = this.getAttribute('data-page');
             if (pageId) {
+                console.log('桌面导航点击:', pageId);
                 switchPage(pageId);
                 window.location.hash = pageId;
             }
@@ -1202,6 +1358,21 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert('抱歉，这篇文章还在创作中，敬请期待！');
             }
+        });
+    });
+    
+    // ========== 作品项点击事件 ==========
+    document.querySelectorAll('#portfolio .tutorial-item').forEach(item => {
+        item.style.cursor = 'pointer';
+        
+        item.addEventListener('click', function(e) {
+            if (e.target.closest('.meta-item')) return;
+            
+            const title = this.querySelector('h3').textContent;
+            
+            // 这里可以添加作品详情页面逻辑
+            // 暂时显示提示信息
+            alert(`查看作品详情: ${title}\n\n功能开发中，敬请期待！`);
         });
     });
     
@@ -1263,20 +1434,99 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ========== 初始加载 ==========
+    // ========== 添加移动端优化 ==========
+    const isMobile = window.innerWidth <= 768 || isMobileDevice();
+    if (isMobile) {
+        createMobileBottomNav();
+        applyMobileOptimizations();
+        preventMobileZoom();
+    }
+    
+    // ========== 监听横竖屏切换 ==========
+    let orientationTimeout;
+    window.addEventListener('orientationchange', function() {
+        clearTimeout(orientationTimeout);
+        orientationTimeout = setTimeout(function() {
+            // 重新计算布局
+            if (snakeGame) {
+                snakeGame.resizeCanvas();
+                setTimeout(() => {
+                    snakeGame.draw();
+                }, 100);
+            }
+            
+            // 重新应用移动端优化
+            if (window.innerWidth <= 768) {
+                applyMobileOptimizations();
+            }
+        }, 300);
+    });
+    
+    // ========== 优化窗口大小变化响应 ==========
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            // 创建或移除移动端导航栏
+            if (window.innerWidth <= 768) {
+                createMobileBottomNav();
+            } else {
+                const mobileNav = document.querySelector('.mobile-bottom-nav');
+                if (mobileNav) {
+                    mobileNav.remove();
+                }
+            }
+            
+            if (snakeGame) {
+                snakeGame.resizeCanvas();
+                snakeGame.draw();
+            }
+            
+            // 如果是移动端尺寸，应用优化
+            if (window.innerWidth <= 768) {
+                applyMobileOptimizations();
+            }
+        }, 200);
+    });
+    
+    // ========== 初始页面加载 ==========
+    // 首先隐藏所有页面
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+        page.style.display = 'none';
+    });
+    
+    // 然后根据哈希或默认显示页面
+    const initialHash = window.location.hash.substring(1);
+    const validPages = ['intro', 'download', 'tutorial', 'game', 'portfolio', 'article-detail'];
+    
+    if (initialHash && validPages.includes(initialHash)) {
+        console.log('初始页面从哈希加载:', initialHash);
+        switchPage(initialHash);
+    } else {
+        console.log('初始页面默认加载: intro');
+        switchPage('intro');
+    }
+    
+    // 初始化难度显示
+    const difficultyValue = document.getElementById('difficultyValue');
+    const difficultySelect = document.getElementById('difficulty');
+    if (difficultyValue && difficultySelect) {
+        difficultyValue.textContent = difficultySelect.options[difficultySelect.selectedIndex].text;
+    }
+    
+    // 延迟创建移动端导航（如果是移动端）
     setTimeout(() => {
-        handleHashChange();
-        
-        // 初始化难度显示
-        const difficultyValue = document.getElementById('difficultyValue');
-        const difficultySelect = document.getElementById('difficulty');
-        if (difficultyValue && difficultySelect) {
-            difficultyValue.textContent = difficultySelect.options[difficultySelect.selectedIndex].text;
+        if (window.innerWidth <= 768) {
+            createMobileBottomNav();
         }
     }, 100);
     
-    // ========== 监听哈希变化 ==========
-    window.addEventListener('hashchange', handleHashChange);
-    
     console.log('页面初始化完成');
+});
+
+// ========== 监听哈希变化 ==========
+window.addEventListener('hashchange', function() {
+    console.log('哈希变化事件触发');
+    handleHashChange();
 });

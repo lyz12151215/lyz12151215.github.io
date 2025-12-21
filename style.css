@@ -57,7 +57,69 @@ body {
     max-width: 100%;
     margin: 0 auto;
     position: relative;
-    padding-top: 90px; /* 为固定导航栏留出空间 */
+    padding-top: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* 修改顶栏导航宽度 */
+.top-nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    transform: none;
+    width: calc(100% - 40px);
+    max-width: none !important;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 修改所有页面内容 */
+.page-content {
+    position: relative;
+    padding-top: 30px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* 确保所有卡片都100%宽度 */
+.glass-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .top-nav {
+        left: 15px;
+        width: calc(100% - 30px);
+    }
+}
+
+/* 大屏幕优化 - 限制最大宽度但保持居中 */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .top-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(1400px - 40px);
+    }
 }
 
 /* 顶栏导航样式 - 固定定位 */
@@ -67,7 +129,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 40px);
-    /*max-width: 1200px;*/
+    max-width: 1200px;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
@@ -445,7 +507,7 @@ body {
     font-size: 1.3rem;
 }
 
-/* 小红书按钮 - 更红的颜色（小红书品牌色是#FF2442） */
+/* 小红书按钮 - 更红的颜色 */
 .social-btn:nth-child(1) {
     background: rgba(255, 36, 66, 0.25);
     border: 1px solid rgba(255, 56, 86, 0.4);
@@ -457,7 +519,7 @@ body {
     box-shadow: 0 5px 15px rgba(255, 36, 66, 0.25);
 }
 
-/* B站按钮 - 温暖的蓝色调 */
+/* B站按钮 */
 .social-btn:nth-child(2) {
     background: rgba(80, 160, 220, 0.25);
     border: 1px solid rgba(100, 180, 240, 0.4);
@@ -469,7 +531,7 @@ body {
     box-shadow: 0 5px 15px rgba(80, 160, 220, 0.2);
 }
 
-/* GitHub按钮 - 温暖的深灰色 */
+/* GitHub按钮 */
 .social-btn:nth-child(3) {
     background: rgba(80, 80, 90, 0.25);
     border: 1px solid rgba(100, 100, 110, 0.4);
@@ -590,6 +652,236 @@ body {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
+/* ========== 作品页面样式 ========== */
+#portfolio .portfolio-section {
+    min-height: auto;
+    padding: 30px !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#portfolio .portfolio-section h2 {
+    color: #fff !important;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+#portfolio .portfolio-section .section-desc {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* 作品列表使用教程列表样式 */
+#portfolio .portfolio-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+    width: 100%;
+}
+
+#portfolio .tutorial-item {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 280px;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+#portfolio .tutorial-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#portfolio .tutorial-img {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#portfolio .tutorial-img i {
+    font-size: 3.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#portfolio .tutorial-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#portfolio .tutorial-content h3 {
+    color: #fff !important;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+#portfolio .tutorial-content p {
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin-bottom: auto;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+/* 教程元数据 */
+#portfolio .tutorial-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+#portfolio .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+#portfolio .meta-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+#portfolio .meta-item i {
+    color: #FA8072;
+    font-size: 0.9rem;
+    width: 16px;
+    text-align: center;
+}
+
+#portfolio .meta-item span {
+    font-weight: 500;
+}
+
+/* 作品页面底部CTA - 与教程页面完全一致 */
+#portfolio .tutorial-cta {
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-top: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#portfolio .tutorial-cta p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    width: 100%;
+}
+
+#portfolio .back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    border: none;
+}
+
+#portfolio .back-home-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    
+    #portfolio .tutorial-item {
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    #portfolio .tutorial-img {
+        width: 100%;
+        height: 170px;
+        min-height: 170px;
+    }
+    
+    #portfolio .tutorial-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    #portfolio .tutorial-cta {
+        padding: 22px 20px;
+        margin-top: 25px;
+        border-radius: 12px;
+    }
+    
+    #portfolio .tutorial-cta p {
+        font-size: 1rem;
+        margin-bottom: 18px;
+    }
+    
+    #portfolio .back-home-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+        min-height: 44px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    
+    #portfolio .tutorial-item {
+        flex-direction: row;
+    }
+    
+    #portfolio .tutorial-img {
+        width: 200px;
+        min-width: 200px;
+        height: auto;
+    }
+    
+    #portfolio .tutorial-meta {
+        flex-direction: column;
+    }
+}
+
 /* 教程页面样式 */
 .tutorial-section {
     min-height: auto;
@@ -690,7 +982,7 @@ body {
 }
 
 .meta-item i {
-    color: #FA8072; /* 改为鲑鱼红色 #FA8072 */
+    color: #FA8072;
     font-size: 0.9rem;
     width: 16px;
     text-align: center;
@@ -801,7 +1093,7 @@ body {
 }
 
 .article-meta i {
-    color: #FA8072; /* 改为鲑鱼红色 #FA8072 */
+    color: #FA8072;
     font-size: 0.9rem;
 }
 
@@ -839,7 +1131,7 @@ body {
     color: #fff !important;
     font-size: 1.6rem;
     margin: 25px 0 12px;
-    border-left: 4px solid #FA8072; /* 改为鲑鱼红色 #FA8072 */
+    border-left: 4px solid #FA8072;
     padding-left: 12px;
 }
 
@@ -876,7 +1168,7 @@ body {
 }
 
 .article-content blockquote {
-    border-left: 4px solid #FA8072; /* 改为鲑鱼红色 #FA8072 */
+    border-left: 4px solid #FA8072;
     padding-left: 15px;
     margin: 15px 0;
     font-style: italic;
@@ -919,7 +1211,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* ========== 游戏页面样式 - 修改游戏信息横向布局 ========== */
+/* ========== 游戏页面样式 ========== */
 .game-section {
     min-height: auto;
     padding: 30px !important;
@@ -939,7 +1231,7 @@ body {
     line-height: 1.6;
 }
 
-/* 游戏控制面板 - 7个内容并排放置 */
+/* 游戏控制面板 */
 .game-controls {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
@@ -953,7 +1245,7 @@ body {
     gap: 15px;
 }
 
-/* 游戏信息区域 - 4个指标横向排列（图标在左，标题在中，数据在右） */
+/* 游戏信息区域 */
 .game-info {
     display: flex;
     gap: 15px;
@@ -973,7 +1265,6 @@ body {
     min-width: 120px;
 }
 
-/* 难度显示 - 与等级板块一致 */
 .difficulty-display {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 12px;
@@ -993,7 +1284,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* 图标样式 - 在左侧 */
+/* 图标样式 */
 .score-display i, .high-score-display i, .level-display i {
     font-size: 1.5rem;
     color: #FFD700;
@@ -1011,7 +1302,7 @@ body {
 
 .difficulty-display i {
     font-size: 1.5rem;
-    color: #FFA500; /* 橙色表示难度 */
+    color: #FFA500;
     margin-right: 12px;
     flex-shrink: 0;
 }
@@ -1024,23 +1315,23 @@ body {
     flex-grow: 1;
 }
 
-/* 标题样式 - 在图标后面，加粗 */
+/* 标题样式 */
 .score-label, .high-score-label, .level-label, .difficulty-label {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.95);
-    font-weight: 700; /* 加粗 */
+    font-weight: 700;
     margin-bottom: 2px;
 }
 
-/* 数据样式 - 在标题下面，比标题小一点 */
+/* 数据样式 */
 .score-value, .high-score-value, .level-value, .difficulty-value {
     color: #fff;
-    font-size: 1.1rem; /* 比标题小一点 */
+    font-size: 1.1rem;
     font-weight: 600;
     display: block;
 }
 
-/* 游戏按钮组 - 4个图标按钮并排 */
+/* 游戏按钮组 */
 .game-buttons {
     display: flex;
     gap: 10px;
@@ -1203,14 +1494,14 @@ body {
     font-weight: 700;
 }
 
-/* ========== 移动设备方向控制按钮样式 - 修改为始终显示并排布局 ========== */
+/* ========== 移动设备方向控制按钮样式 ========== */
 .mobile-controls {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 25px;
     margin: 0 !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex !important; /* 始终显示 */
+    display: flex !important;
     flex: 1;
     flex-direction: column;
     justify-content: center;
@@ -1247,7 +1538,6 @@ body {
     touch-action: manipulation;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    /* 确保没有阴影和缩放效果 */
     box-shadow: none !important;
     transform: none !important;
 }
@@ -1257,7 +1547,7 @@ body {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* 不同方向按钮的颜色 - 确保没有阴影和缩放 */
+/* 不同方向按钮的颜色 */
 .up-btn {
     background: rgba(76, 175, 80, 0.25);
     border-color: rgba(76, 175, 80, 0.4);
@@ -1267,8 +1557,7 @@ body {
 
 .up-btn:hover, .up-btn:active {
     background: rgba(76, 175, 80, 0.4);
-    transform: translateY(-3px) !important; /* 只保留上移效果，不缩放 */
-    /* 删除阴影效果 */
+    transform: translateY(-3px) !important;
     box-shadow: none;
 }
 
@@ -1281,8 +1570,7 @@ body {
 
 .down-btn:hover, .down-btn:active {
     background: rgba(33, 150, 243, 0.4);
-    transform: translateY(-3px) !important; /* 只保留上移效果，不缩放 */
-    /* 删除阴影效果 */
+    transform: translateY(-3px) !important;
     box-shadow: none;
 }
 
@@ -1295,8 +1583,7 @@ body {
 
 .left-btn:hover, .left-btn:active {
     background: rgba(255, 193, 7, 0.4);
-    transform: translateY(-3px) !important; /* 只保留上移效果，不缩放 */
-    /* 删除阴影效果 */
+    transform: translateY(-3px) !important;
     box-shadow: none;
 }
 
@@ -1309,14 +1596,12 @@ body {
 
 .right-btn:hover, .right-btn:active {
     background: rgba(156, 39, 176, 0.4);
-    transform: translateY(-3px) !important; /* 只保留上移效果，不缩放 */
-    /* 删除阴影效果 */
+    transform: translateY(-3px) !important;
     box-shadow: none;
 }
 
-/* 按下效果 - 确保没有inset阴影和缩放 */
 .direction-btn:active {
-    transform: translateY(1px) !important; /* 按下时轻微下移，不缩放 */
+    transform: translateY(1px) !important;
     box-shadow: none;
 }
 
@@ -1447,13 +1732,13 @@ body {
     }
 }
 
-/* 修改按钮点击动画 - 删除缩放效果 */
+/* 修改按钮点击动画 */
 @keyframes buttonPress {
     0% {
         opacity: 1;
     }
     50% {
-        opacity: 0.7; /* 改为改变透明度而不是大小 */
+        opacity: 0.7;
     }
     100% {
         opacity: 1;
@@ -1462,7 +1747,6 @@ body {
 
 .button-press-animation {
     animation: buttonPress 0.2s ease;
-    /* 确保动画不影响按钮大小 */
     transform: none !important;
 }
 
@@ -1542,18 +1826,961 @@ body {
     to { opacity: 1; }
 }
 
+/* ==================== 移动端优化部分 ==================== */
+
+/* 1. 中等屏幕优化 (平板和手机) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        font-size: 15px;
+    }
+    
+    .container {
+        padding-top: 75px;
+        padding-bottom: 100px;
+    }
+    
+    .top-nav {
+        top: 15px;
+        width: calc(100% - 30px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .nav-container {
+        padding: 12px 18px;
+        justify-content: center;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .nav-logo {
+        font-size: 1.3rem;
+        justify-content: center;
+    }
+    
+    .nav-logo img {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .nav-toggle {
+        display: none;
+    }
+    
+    .glass-card {
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 18px;
+    }
+    
+    .avatar-frame {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .avatar-glow {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .name {
+        font-size: 2.2rem;
+    }
+    
+    .title {
+        font-size: 1.1rem;
+    }
+    
+    .bio {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+    
+    .skill-bar {
+        height: 8px;
+    }
+    
+    .social-links {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .social-btn {
+        padding: 14px 18px;
+        font-size: 1.05rem;
+        min-height: 50px;
+    }
+    
+    .download-items {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    
+    .download-item {
+        padding: 22px;
+        min-height: 260px;
+    }
+    
+    .download-item h3 {
+        font-size: 1.3rem;
+    }
+    
+    .download-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1.1rem;
+        min-height: 50px;
+    }
+    
+    .tutorial-list {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    
+    .tutorial-item {
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    .tutorial-img {
+        width: 100%;
+        height: 170px;
+        min-height: 170px;
+    }
+    
+    .tutorial-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* 游戏页面移动端特定优化 */
+    .game-controls {
+        padding: 18px;
+        flex-direction: column;
+        gap: 18px;
+    }
+    
+    .game-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        justify-content: space-between;
+        min-width: auto;
+    }
+    
+    .score-display,
+    .high-score-display,
+    .level-display,
+    .difficulty-display {
+        min-width: auto;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 12px 15px;
+    }
+    
+    .game-and-controls-container {
+        flex-direction: column;
+        gap: 22px;
+    }
+    
+    .game-container {
+        width: 100%;
+        aspect-ratio: 4/3;
+    }
+    
+    .mobile-controls {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px;
+        min-height: auto;
+    }
+    
+    .direction-btn {
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+        min-height: 70px;
+    }
+    
+    .direction-btn i {
+        font-size: 2rem;
+    }
+    
+    .horizontal-controls {
+        gap: 25px;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    
+    .instruction-item {
+        padding: 18px;
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .instruction-icon {
+        flex-shrink: 0;
+    }
+    
+    .article-section {
+        padding: 25px !important;
+    }
+    
+    .article-header h2 {
+        font-size: 1.7rem;
+        padding: 0;
+        margin-top: 15px;
+    }
+    
+    .back-to-tutorial-btn {
+        position: static;
+        margin-bottom: 18px;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        padding: 10px 20px;
+        min-height: 44px;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .article-image {
+        height: 220px;
+        margin: 18px 0;
+    }
+    
+    .article-content {
+        font-size: 1rem;
+        line-height: 1.65;
+        margin: 25px 0;
+        padding: 18px 0;
+    }
+    
+    .article-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .download-article-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        min-height: 50px;
+        font-size: 1.1rem;
+    }
+    
+    .footer {
+        padding: 22px 0;
+        font-size: 0.9rem;
+        margin-bottom: 80px;
+    }
+    
+    /* 移动端触摸优化 */
+    .nav-link:active,
+    .social-btn:active,
+    .download-btn:active,
+    .direction-btn:active,
+    .icon-btn:active,
+    .tutorial-item:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+    }
+    
+    h1, h2, h3 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .skill-name,
+    .contact-item span,
+    .meta-item span,
+    .download-item p,
+    .tutorial-content p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    html {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .page-content {
+        overflow-x: hidden;
+    }
+    
+    .top-nav,
+    .glass-card {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    
+    .bg-shape {
+        filter: blur(25px);
+    }
+    
+    /* 底部导航栏 */
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 25px;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 999;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .mobile-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.8);
+        padding: 10px 15px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        min-width: 60px;
+        min-height: 60px;
+        position: relative;
+    }
+    
+    .mobile-nav-link i {
+        font-size: 1.6rem;
+        margin-bottom: 4px;
+    }
+    
+    .mobile-nav-link span {
+        display: none;
+    }
+    
+    .mobile-nav-link:hover,
+    .mobile-nav-link.active {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        transform: translateY(-3px);
+    }
+    
+    .mobile-nav-link.active {
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+    
+    .mobile-nav-link::after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 1000;
+        pointer-events: none;
+    }
+    
+    .mobile-nav-link:hover::after {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .mobile-nav-link:active {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+}
+
+/* 2. 超小屏幕优化 */
+@media (max-width: 375px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .container {
+        padding-top: 65px;
+        padding-bottom: 90px;
+    }
+    
+    .mobile-bottom-nav {
+        width: 95%;
+        padding: 10px 15px;
+        bottom: 15px;
+        max-width: 350px;
+    }
+    
+    .mobile-nav-link {
+        padding: 8px 12px;
+        min-width: 55px;
+        min-height: 55px;
+    }
+    
+    .mobile-nav-link i {
+        font-size: 1.4rem;
+    }
+    
+    .footer {
+        margin-bottom: 70px;
+    }
+    
+    .avatar-frame {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .avatar-glow {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .name {
+        font-size: 2rem;
+    }
+    
+    .title {
+        font-size: 1rem;
+    }
+    
+    .bio {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+    
+    .skill-bar {
+        height: 6px;
+    }
+    
+    .social-links {
+        gap: 10px;
+    }
+    
+    .social-btn {
+        padding: 12px 15px;
+        font-size: 1rem;
+        min-height: 46px;
+    }
+    
+    .download-items {
+        gap: 20px;
+    }
+    
+    .download-item {
+        padding: 20px;
+        min-height: 240px;
+    }
+    
+    .download-item h3 {
+        font-size: 1.2rem;
+    }
+    
+    .download-btn {
+        padding: 12px 16px;
+        min-height: 46px;
+    }
+    
+    .tutorial-item {
+        margin-bottom: 20px;
+    }
+    
+    .tutorial-img {
+        height: 160px;
+        min-height: 160px;
+    }
+    
+    .tutorial-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .game-controls {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .game-info {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .score-display,
+    .high-score-display,
+    .level-display,
+    .difficulty-display {
+        width: 100%;
+        min-width: auto;
+        padding: 10px 12px;
+    }
+    
+    .game-buttons {
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .icon-btn {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+        font-size: 1.1rem;
+    }
+    
+    .game-and-controls-container {
+        gap: 18px;
+    }
+    
+    .game-container {
+        aspect-ratio: 1/1;
+    }
+    
+    .mobile-controls {
+        padding: 18px;
+    }
+    
+    .direction-btn {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        min-height: 65px;
+    }
+    
+    .direction-btn i {
+        font-size: 1.8rem;
+    }
+    
+    .horizontal-controls {
+        gap: 20px;
+    }
+    
+    .instructions-grid {
+        gap: 15px;
+    }
+    
+    .instruction-item {
+        padding: 15px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .article-header h2 {
+        font-size: 1.5rem;
+        margin-top: 12px;
+    }
+    
+    .back-to-tutorial-btn {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+        min-height: 42px;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .article-image {
+        height: 180px;
+        margin: 15px 0;
+    }
+    
+    .article-content {
+        font-size: 0.95rem;
+        padding: 15px 0;
+    }
+    
+    .article-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .download-article-btn {
+        padding: 12px 20px;
+        min-height: 46px;
+        font-size: 1.05rem;
+    }
+}
+
+/* 3. 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        padding-top: 65px;
+        padding-bottom: 80px;
+    }
+    
+    .mobile-bottom-nav {
+        bottom: 10px;
+        padding: 8px 15px;
+        max-width: 350px;
+    }
+    
+    .mobile-nav-link {
+        padding: 6px 10px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+    
+    .mobile-nav-link i {
+        font-size: 1.4rem;
+    }
+    
+    .footer {
+        margin-bottom: 60px;
+    }
+    
+    .profile-section {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 15px;
+        text-align: left;
+    }
+    
+    .avatar-container {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        align-self: center;
+    }
+    
+    .avatar-frame {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .name {
+        font-size: 1.8rem;
+        align-self: end;
+    }
+    
+    .title {
+        align-self: start;
+        margin-top: 0;
+    }
+    
+    .bio {
+        grid-column: 1 / span 2;
+        margin-top: 10px;
+        padding: 0;
+    }
+    
+    .game-and-controls-container {
+        flex-direction: row;
+        align-items: stretch;
+        min-height: 280px;
+    }
+    
+    .game-container {
+        flex: 2;
+        min-height: 220px;
+        aspect-ratio: auto;
+    }
+    
+    .mobile-controls {
+        flex: 1;
+        padding: 15px;
+        min-height: 220px;
+        justify-content: center;
+    }
+    
+    .direction-btn {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .direction-btn i {
+        font-size: 1.8rem;
+    }
+    
+    .horizontal-controls {
+        gap: 15px;
+    }
+    
+    .download-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .tutorial-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* 4. 中等手机横屏 */
+@media (min-width: 481px) and (max-width: 768px) and (orientation: landscape) {
+    .game-info {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    
+    .score-display,
+    .high-score-display,
+    .level-display,
+    .difficulty-display {
+        padding: 10px 12px;
+    }
+}
+
+/* 5. 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .nav-link,
+    button,
+    .social-btn,
+    .download-btn,
+    .direction-btn,
+    .icon-btn,
+    .mobile-nav-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link:hover,
+    .glass-card:hover,
+    .social-btn:hover,
+    .download-btn:hover,
+    .direction-btn:hover,
+    .icon-btn:hover,
+    .tutorial-item:hover,
+    .download-item:hover,
+    .mobile-nav-link:hover {
+        transform: none;
+    }
+    
+    .nav-link:active,
+    button:active,
+    .social-btn:active,
+    .download-btn:active,
+    .tutorial-item:active,
+    .download-item:active,
+    .mobile-nav-link:active {
+        opacity: 0.85;
+        transform: scale(0.98);
+        transition: transform 0.1s ease, opacity 0.1s ease;
+    }
+    
+    .direction-btn:active,
+    .icon-btn:active {
+        opacity: 0.8;
+        transform: scale(0.95);
+    }
+    
+    .start-btn:active {
+        background: rgba(76, 175, 80, 0.4);
+    }
+    
+    .pause-btn:active {
+        background: rgba(255, 193, 7, 0.4);
+    }
+    
+    .restart-btn:active {
+        background: rgba(33, 150, 243, 0.4);
+    }
+    
+    .home-btn:active {
+        background: rgba(156, 39, 176, 0.4);
+    }
+    
+    .mobile-nav-link:active {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+    
+    .mobile-nav-link::after {
+        display: none;
+    }
+    
+    .mobile-nav-link.long-press span {
+        display: block !important;
+        font-size: 0.7rem;
+        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.9);
+        animation: fadeInText 0.3s ease;
+    }
+    
+    @keyframes fadeInText {
+        from {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* 6. 防止移动端文本溢出 */
+@media (max-width: 768px) {
+    .bio,
+    .section-desc,
+    .download-item p {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .tutorial-content p {
+        -webkit-line-clamp: 3;
+    }
+    
+    .skill-name,
+    .contact-item span {
+        word-break: break-word;
+        hyphens: auto;
+    }
+}
+
+/* 7. 移动端滚动优化 */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+    
+    .page-content {
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+}
+
+/* 8. 移动端性能优化 */
+@media (max-width: 768px) {
+    .glass-card,
+    .nav-link,
+    .social-btn,
+    .download-btn,
+    .direction-btn,
+    .icon-btn,
+    .mobile-nav-link {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    
+    .glass-card {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .top-nav,
+    .mobile-bottom-nav {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bg-shape.shape3,
+    .bg-shape.shape4 {
+        display: none;
+    }
+}
+
+/* 9. 移动端特定样式类 */
+.is-mobile .game-controls {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.is-mobile .direction-btn {
+    background: rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.is-mobile .control-hint {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+/* 10. 强制某些元素在移动端保持可见 */
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex !important;
+    }
+    
+    .control-hint {
+        display: block !important;
+    }
+    
+    .direction-controls {
+        display: flex !important;
+    }
+    
+    .mobile-bottom-nav {
+        display: flex !important;
+    }
+}
+
+/* 11. 修复移动端Safari的100vh问题 */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        min-height: -webkit-fill-available;
+    }
+    
+    .page-content {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* 12. 防止移动端输入框缩放 */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+        font-size: 16px;
+    }
+}
+
+/* 13. 移动端游戏分数显示优化 */
+@media (max-width: 768px) {
+    .score-display i,
+    .high-score-display i,
+    .level-display i,
+    .difficulty-display i {
+        font-size: 1.4rem;
+        margin-right: 10px;
+    }
+    
+    .score-label,
+    .high-score-label,
+    .level-label,
+    .difficulty-label {
+        font-size: 0.85rem;
+    }
+    
+    .score-value,
+    .high-score-value,
+    .level-value,
+    .difficulty-value {
+        font-size: 1.2rem;
+    }
+}
+
 /* 响应式设计 - 平板及以上 */
 @media (min-width: 768px) {
     .main-content {
         grid-template-columns: 2fr 1fr;
     }
     
-    /* 游戏页面桌面布局 */
     .game-controls {
         flex-wrap: nowrap;
     }
     
-    /* 下载和教程页面使用全宽布局 */
     #download .main-content,
     #tutorial .main-content,
     #article-detail .main-content,
@@ -1589,13 +2816,11 @@ body {
         height: 200px;
     }
     
-    /* 教程元数据在大屏幕上横向排列 */
     .tutorial-meta {
         flex-direction: row;
         gap: 15px;
     }
     
-    /* 下载和教程页面响应式 */
     .download-items {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
@@ -1633,7 +2858,6 @@ body {
         height: auto;
     }
     
-    /* 教程元数据在横向布局时改回垂直排列 */
     .tutorial-meta {
         flex-direction: column;
     }
@@ -1642,234 +2866,6 @@ body {
 @media (max-width: 1024px) {
     .download-items {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-}
-
-/* 响应式设计 - 移动端 */
-@media (max-width: 768px) {
-    /* 游戏和方向控制按钮在移动端垂直排列 */
-    .game-and-controls-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .direction-btn {
-        width: 65px;
-        height: 65px;
-    }
-    
-    .direction-btn i {
-        font-size: 1.8rem;
-    }
-    
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: calc(100% + 5px);
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-radius: 0 0 15px 15px;
-        padding: 20px;
-        flex-direction: column;
-        z-index: 1000;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-top: none;
-    }
-    
-    .nav-toggle {
-        display: block;
-    }
-    
-    .nav-link {
-        justify-content: center;
-        padding: 15px;
-        margin-bottom: 10px;
-    }
-    
-    .nav-link:last-child {
-        margin-bottom: 0;
-    }
-    
-    .nav-links.active {
-        display: flex !important;
-        animation: slideDown 0.3s ease;
-    }
-    
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* 游戏页面移动端调整 */
-    .game-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .game-info {
-        flex-wrap: wrap;
-        justify-content: center;
-        min-width: auto;
-    }
-    
-    .score-display, .high-score-display, .level-display, .difficulty-display {
-        min-width: 110px;
-        padding: 10px 12px;
-    }
-    
-    .score-display i, .high-score-display i, .level-display i, .difficulty-display i {
-        font-size: 1.3rem;
-        margin-right: 10px;
-    }
-    
-    .score-label, .high-score-label, .level-label, .difficulty-label {
-        font-size: 0.85rem;
-    }
-    
-    .score-value, .high-score-value, .level-value, .difficulty-value {
-        font-size: 1rem;
-    }
-    
-    .game-buttons {
-        justify-content: center;
-        width: 100%;
-    }
-    
-    .instructions-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .instruction-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    /* 文章详情页面响应式 */
-    .article-section {
-        padding: 20px !important;
-    }
-    
-    .article-header h2 {
-        font-size: 1.6rem;
-        padding: 0 60px;
-        margin-top: 35px;
-    }
-    
-    .back-to-tutorial-btn {
-        position: static;
-        margin-bottom: 15px;
-        width: auto;
-        display: inline-flex;
-    }
-    
-    .article-meta {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .article-image {
-        height: 200px;
-    }
-    
-    .article-content {
-        font-size: 1rem;
-        margin: 20px 0;
-        padding: 15px 0;
-    }
-    
-    .article-content h3 {
-        font-size: 1.4rem;
-    }
-    
-    .article-footer {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    /* 下载和教程页面的响应式调整 */
-    .download-items {
-        grid-template-columns: 1fr;
-    }
-    
-    .download-item {
-        padding: 20px;
-    }
-    
-    .tutorial-item {
-        flex-direction: column;
-    }
-    
-    .tutorial-img {
-        width: 100%;
-        height: 180px;
-        min-width: auto;
-    }
-}
-
-/* 非常小的屏幕 */
-@media (max-width: 480px) {
-    /* 方向按钮在小屏幕上调整 */
-    .direction-btn {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .direction-btn i {
-        font-size: 1.6rem;
-    }
-    
-    .mobile-controls {
-        padding: 20px;
-    }
-    
-    .horizontal-controls {
-        gap: 15px;
-    }
-    
-    .game-info {
-        flex-direction: column;
-        min-width: auto;
-    }
-    
-    .score-display, .high-score-display, .level-display, .difficulty-display {
-        min-width: auto;
-        width: 100%;
-        padding: 8px 10px;
-    }
-    
-    .score-display i, .high-score-display i, .level-display i, .difficulty-display i {
-        font-size: 1rem;
-        margin-right: 6px;
-    }
-    
-    .score-value, .high-score-value, .level-value, .difficulty-value {
-        font-size: 1rem;
-    }
-    
-    .score-label, .high-score-label, .level-label, .difficulty-label {
-        font-size: 0.7rem;
-    }
-    
-    .game-buttons {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .icon-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 1rem;
     }
 }
 
@@ -1888,4 +2884,179 @@ body {
     display: flex;
     flex-direction: column;
     gap: 25px;
+}
+
+/* 移动端游戏画布触摸优化 */
+@media (max-width: 768px) {
+    #gameCanvas {
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+}
+
+/* 修复移动端按钮点击状态的闪动 */
+@media (max-width: 768px) {
+    button,
+    .social-btn,
+    .download-btn,
+    .direction-btn,
+    .icon-btn,
+    .mobile-nav-link {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .tutorial-item,
+    .download-item {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* 底部导航栏动画 */
+@keyframes slideUpNav {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.mobile-bottom-nav {
+    animation: slideUpNav 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ========== 作品页面全屏修复 ========== */
+
+/* 确保作品页面主容器使用全宽 */
+#portfolio .main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 确保作品页面卡片容器使用全宽 */
+#portfolio .portfolio-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 30px !important;
+    box-sizing: border-box;
+}
+
+/* 确保作品列表容器使用全宽 */
+#portfolio .portfolio-list {
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 移除所有不必要的最大宽度限制 */
+#portfolio .page {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* 确保网格布局正确 */
+#portfolio .portfolio-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    
+    #portfolio .portfolio-section {
+        padding: 25px !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    #portfolio .portfolio-list {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+/* 确保移动端底部导航不遮挡内容 */
+@media (max-width: 768px) {
+    #portfolio .portfolio-section {
+        padding-bottom: 100px !important; /* 为底部导航留出空间 */
+    }
+}
+
+/* 修复作品页的图片/图标区域居中显示图标 */
+#portfolio .tutorial-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    min-height: 180px;
+}
+
+/* 确保元数据图标颜色与教程页一致 */
+#portfolio .meta-item i {
+    color: #FA8072 !important; /* 鲑鱼红色，与教程页一致 */
+}
+
+/* 确保作品项有正确的悬停效果 */
+#portfolio .tutorial-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+#portfolio .tutorial-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 确保内容区域填充整个容器 */
+#portfolio .tutorial-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#portfolio .tutorial-content p {
+    flex-grow: 1;
+}
+
+/* 确保没有溢出或滚动问题 */
+#portfolio .page-content {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* 修复大屏幕布局 */
+@media (min-width: 1024px) {
+    #portfolio .tutorial-item {
+        flex-direction: row;
+    }
+    
+    #portfolio .tutorial-img {
+        width: 200px;
+        min-width: 200px;
+        height: auto;
+        min-height: auto;
+    }
 }
